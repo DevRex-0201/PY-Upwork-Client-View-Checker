@@ -20,6 +20,15 @@ import asyncio
 import telegram
 from telegram import Bot  # Make sure to import Bot correctly
 
+# Load environment variables
+dotenv.load_dotenv()
+
+# Use os.getenv to retrieve environment variables
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
+UPWORK_USERNAME = os.getenv("UPWORK_USERNAME")
+UPWORK_PASSWORD = os.getenv("UPWORK_PASSWORD")
+TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
+
 def login_to_website(driver, username, password, login_url):
     try:
         driver.get(login_url)
@@ -68,18 +77,18 @@ def init_driver():
     return driver
 
 async def send_mail(content):
-    bot = telegram.Bot("6195527429:AAF4l0_OAktQ43p6DhWjLmRXnMv-8zRSrac")
+    bot = telegram.Bot(TELEGRAM_TOKEN)
     async with bot:
         chat_id = (await bot.get_updates())
-        await bot.send_message(text=content, chat_id=6449392325)
+        await bot.send_message(text=content, chat_id=TELEGRAM_CHAT_ID)
 
 def main():
     check_data = {}
     while True:       
         driver = init_driver()
         login_url = 'https://www.upwork.com/ab/account-security/login'
-        username = 'andreasfischer0201+100@gmail.com'
-        password = 'jrw20200417'
+        username = UPWORK_USERNAME
+        password = UPWORK_PASSWORD
 
         try:
             driver.get(login_url)

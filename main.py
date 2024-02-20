@@ -20,6 +20,15 @@ import asyncio
 import telegram
 from telegram import Bot  # Make sure to import Bot correctly
 
+# Load environment variables
+dotenv.load_dotenv()
+
+# Use os.getenv to retrieve environment variables
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
+UPWORK_USERNAME = os.getenv("UPWORK_USERNAME")
+UPWORK_PASSWORD = os.getenv("UPWORK_PASSWORD")
+TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
+
 def login_to_website(driver, username, password, login_url):
     try:
         driver.get(login_url)
@@ -68,18 +77,18 @@ def init_driver():
     return driver
 
 async def send_mail(content):
-    bot = telegram.Bot("Token")
+    bot = telegram.Bot(TELEGRAM_TOKEN)
     async with bot:
         chat_id = (await bot.get_updates())
-        await bot.send_message(text=content, chat_id=6449392325)
+        await bot.send_message(text=content, chat_id=TELEGRAM_CHAT_ID)
 
 def main():
     check_data = {}
     while True:       
         driver = init_driver()
         login_url = 'https://www.upwork.com/ab/account-security/login'
-        username = 'andreasfischer0201+100@gmail.com'
-        password = 'jrw20200417'
+        username = UPWORK_USERNAME
+        password = UPWORK_PASSWORD
 
         try:
             driver.get(login_url)
@@ -106,7 +115,7 @@ def main():
             print(f"Login error: {e}")
             driver.quit()
             continue
-        for index in range(60):
+        for index in range(30):
             file_path = 'urls.txt'
             if os.path.exists('urls.txt'):
                 with open(file_path, 'r', encoding='utf-8') as file:                                        
@@ -131,7 +140,9 @@ def main():
                             viewed_time = 'Not viewed'  
                             hires = '0'       
                             for item in activity_items:
-                                if ('Proposals:' in item.text) and ('c' in proposals or 'd' in proposals or 'g' in proposals or 'm' in proposals or 't' in proposals  or 'z' in proposals or 'o' in proposals or 's' in proposals ):
+                                chars_to_check = {'c', 'd', 'g', 'm', 't', 'z', 'o', 's', 'f', 'r', 'q'}
+
+                                if 'Proposals:' in item.text and any(c in proposals.lower() for c in chars_to_check):
                                     proposals = str(item.find(class_='value').text.replace('\n', '').strip())
                                 if 'Last viewed by client' in item.text:
                                     viewed_time = str(item.find(class_='value').text.replace('\n', '').strip())
