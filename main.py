@@ -68,7 +68,7 @@ def init_driver():
     return driver
 
 async def send_mail(content):
-    bot = telegram.Bot("6195527429:AAF4l0_OAktQ43p6DhWjLmRXnMv-8zRSrac")
+    bot = telegram.Bot("6950374451:AAGCFU7R7x4XpVqDWZOgBn4suyYRWzHq-do")
     async with bot:
         chat_id = (await bot.get_updates())
         await bot.send_message(text=content, chat_id=6449392325)
@@ -106,7 +106,7 @@ def main():
             print(f"Login error: {e}")
             driver.quit()
             continue
-        for _ in range(30):
+        for index in range(60):
             file_path = 'urls.txt'
             if os.path.exists('urls.txt'):
                 with open(file_path, 'r', encoding='utf-8') as file:                                        
@@ -131,7 +131,7 @@ def main():
                             viewed_time = 'Not viewed'  
                             hires = '0'       
                             for item in activity_items:
-                                if ('Proposals:' in item.text) and ('c' in proposals or 'd' in proposals or 'g' in proposals or 'm' in proposals or 't' in proposals  or 'z' in proposals ):
+                                if ('Proposals:' in item.text) and ('c' in proposals or 'd' in proposals or 'g' in proposals or 'm' in proposals or 't' in proposals  or 'z' in proposals or 'o' in proposals or 's' in proposals ):
                                     proposals = str(item.find(class_='value').text.replace('\n', '').strip())
                                 if 'Last viewed by client' in item.text:
                                     viewed_time = str(item.find(class_='value').text.replace('\n', '').strip())
@@ -143,11 +143,12 @@ def main():
                                     invites_sent = str(item.find(class_='value').text.replace('\n', '').strip())
                                 if 'Unanswered invites:' in item.text:
                                     unanswered_invites = str(item.find(class_='value').text.replace('\n', '').strip())
-                            message = soup.title.text + '\n' + url + '\n' + 'Proposals: ' + proposals  + '\n' + 'Last viewed by client: ' + viewed_time  + '\n' + 'Hires: ' + hires  + '\n' + 'Interviewing: ' + interviews  + '\n' + 'Invites sent: ' + invites_sent  + '\n' + 'Unanswered invites: ' + unanswered_invites 
-
+                            mark = '*****************************************************************'
+                            message = mark + '\n' + soup.title.text + '\n' + url + '\n' + 'Proposals: ' + proposals  + '\n' + 'Last viewed by client: ' + viewed_time  + '\n' + 'Hires: ' + hires  + '\n' + 'Interviewing: ' + interviews  + '\n' + 'Invites sent: ' + invites_sent  + '\n' + 'Unanswered invites: ' + unanswered_invites + '\n' + mark
+                            
                             if url in check_data and 'seconds' in viewed_time:
-                                mark = '*********************************************************'
-                                message = mark + '\n' + soup.title.text + '\n' + url + '\n' + 'Proposals: ' + proposals  + '\n' + 'Last viewed by client: ' + viewed_time  + '\n' + 'Hires: ' + hires  + '\n' + 'Interviewing: ' + interviews  + '\n' + 'Invites sent: ' + invites_sent  + '\n' + 'Unanswered invites: ' + unanswered_invites 
+                                mark = '*****************************************************************'
+                                message = mark + '\n' + soup.title.text + '\n' + url + '\n' + 'Proposals: ' + proposals  + '\n' + 'Last viewed by client: ' + viewed_time  + '\n' + 'Hires: ' + hires  + '\n' + 'Interviewing: ' + interviews  + '\n' + 'Invites sent: ' + invites_sent  + '\n' + 'Unanswered invites: ' + unanswered_invites + '\n' + mark
                                 asyncio.run(send_mail(message))
                             check_data[url] = viewed_time
                             print('\n')
@@ -218,7 +219,9 @@ def main():
                             except Exception as e:
                                 print(f"Login error: {e}")
                                 driver.quit()
+            print(index)
         driver.quit()
 
 if __name__ == "__main__":
+    
     main()
