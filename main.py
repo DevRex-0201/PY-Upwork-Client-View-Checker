@@ -68,7 +68,7 @@ def init_driver():
     return driver
 
 async def send_mail(content):
-    bot = telegram.Bot("6950374451:AAGCFU7R7x4XpVqDWZOgBn4suyYRWzHq-do")
+    bot = telegram.Bot("Token")
     async with bot:
         chat_id = (await bot.get_updates())
         await bot.send_message(text=content, chat_id=6449392325)
