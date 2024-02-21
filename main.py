@@ -159,7 +159,7 @@ def main():
                             
                             if url in check_data and 'seconds' in viewed_time:
                                 mark = '*****************************************************************'
-                                message = mark + '\n' + soup.title.text + '\n' + url + '\n' + 'Proposals: ' + proposals  + '\n' + 'Last viewed by client: ' + viewed_time  + '\n' + 'Hires: ' + hires  + '\n' + 'Interviewing: ' + interviews  + '\n' + 'Invites sent: ' + invites_sent  + '\n' + 'Unanswered invites: ' + unanswered_invites + '\n' + mark
+                                message = '\n' + soup.title.text + '\n' + url + '\n' + 'Proposals: ' + proposals  + '\n' + 'Last viewed by client: ' + viewed_time  + '\n' + 'Hires: ' + hires  + '\n' + 'Interviewing: ' + interviews  + '\n' + 'Invites sent: ' + invites_sent  + '\n' + 'Unanswered invites: ' + unanswered_invites + '\n' + mark
                                 asyncio.run(send_mail(message))
                             check_data[url] = viewed_time
                             print('\n')
