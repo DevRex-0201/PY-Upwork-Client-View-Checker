@@ -140,7 +140,7 @@ def main():
                             viewed_time = 'Not viewed'  
                             hires = '0'       
                             for item in activity_items:
-                                chars_to_check = {'c', 'd', 'g', 'm', 't', 'z', 'o', 's', 'f', 'r', 'q'}
+                                chars_to_check = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'}
 
                                 if 'Proposals:' in item.text and any(c in proposals.lower() for c in chars_to_check):
                                     proposals = str(item.find(class_='value').text.replace('\n', '').strip())
@@ -159,7 +159,7 @@ def main():
                             
                             if url in check_data and 'seconds' in viewed_time:
                                 mark = '*****************************************************************'
-                                message = '\n' + soup.title.text + '\n' + url + '\n' + 'Proposals: ' + proposals  + '\n' + 'Last viewed by client: ' + viewed_time  + '\n' + 'Hires: ' + hires  + '\n' + 'Interviewing: ' + interviews  + '\n' + 'Invites sent: ' + invites_sent  + '\n' + 'Unanswered invites: ' + unanswered_invites + '\n' + mark
+                                message = mark + '\n' + soup.title.text + '\n' + url + '\n' + 'Proposals: ' + proposals  + '\n' + 'Last viewed by client: ' + viewed_time  + '\n' + 'Hires: ' + hires  + '\n' + 'Interviewing: ' + interviews  + '\n' + 'Invites sent: ' + invites_sent  + '\n' + 'Unanswered invites: ' + unanswered_invites + '\n' + mark
                                 asyncio.run(send_mail(message))
                             check_data[url] = viewed_time
                             print('\n')
