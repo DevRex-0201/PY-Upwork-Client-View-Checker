@@ -172,8 +172,8 @@ def main():
                             time.sleep(5)
                             driver = init_driver()
                             login_url = 'https://www.upwork.com/ab/account-security/login'
-                            username = 'andreasfischer0201+200@gmail.com'
-                            password = 'jrw20200417'
+                            username = UPWORK_USERNAME
+                            password = UPWORK_PASSWORD
 
                             try:
                                 driver.get(login_url)
@@ -204,8 +204,8 @@ def main():
                             time.sleep(5)
                             driver = init_driver()
                             login_url = 'https://www.upwork.com/ab/account-security/login'
-                            username = 'andreasfischer0201+200@gmail.com'
-                            password = 'jrw20200417'
+                            username = UPWORK_USERNAME
+                            password = UPWORK_PASSWORD
 
                             try:
                                 driver.get(login_url)
